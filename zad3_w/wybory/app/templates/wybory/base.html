@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+{% load staticfiles %}
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Gminy</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}"/>
+</head>
+
+<body>
+
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>
+        {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} Error: {% endif %}
+        {{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% include 'wybory/navbar.html' %}
+
+<div class="container">
+    {% include 'wybory/messages.html' %}
+    {% block obwody %}{% endblock %}
+</div>
+
+{% block skrypty %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/ajaxes.js' %}"></script>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "wybory/index.html" %}
+
+
+{% block obwody %}
+    <span class="message"></span>
+    <nav>
+        <ul class="pagination ">
+            <li>
+                {% if obwody.has_previous %}
+                    <a href="?page={{ obwody.previous_page_number }}" aria-label="Prev">
+                        <span aria-hidden="true">&laquo; Previous </span>
+                    </a>
+                {% endif %}
+            </li>
+            <li>
+            <span class="current">
+                Page {{ obwody.number }} of {{ obwody.paginator.num_pages }}.
+            </span>
+            </li>
+            <li>
+                {% if obwody.has_next %}
+                    <a href="?page={{ obwody.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">Next &raquo;</span>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+
+    <table class="table">
+        <tr>
+            <td> Adres</td>
+            <td> Ilość kart</td>
+            <td> Ilość uprawnionych</td>
+            <td></td>
+        </tr>
+
+        {% for obwod in obwody %}
+            <tr data-id="{{ obwod.id }}">
+                {#                {{ obwod.id }}#}
+                <td> {{ obwod.adres }} </td>
+                <td class="ileKart"> {{ obwod.ileKart }} </td>
+                <td class="uprawnionych"> {{ obwod.uprawnionych }} </td>
+                <td>
+                    <input type="submit" value="Wprowadź frekwencję"
+                           class="edytuj btn btn-primary" onclick="edit_click()">
+                    <input type="submit" value="Zapisz" class="zapisz btn btn-success"
+                            style="display:none;" onclick="save()">
+                    <input type="submit" value="Anuluj" class="anuluj btn btn-danger"
+                            style="display:none;" onclick="cancel()">
+                    <input type="hidden" class="wersja" value="{{ obwod.wersja }}">
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
